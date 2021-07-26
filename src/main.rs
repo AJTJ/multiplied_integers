@@ -33,7 +33,7 @@ fn find_if_working(
 // with 3 internal loops
 // VERY brute force
 fn loop_through() -> Vec<Vec<u32>> {
-    let mut shared: Vec<Vec<u32>> = vec![];
+    let mut possible_combinations: Vec<Vec<u32>> = vec![];
     let mut a;
     let mut b;
     let mut c;
@@ -46,7 +46,7 @@ fn loop_through() -> Vec<Vec<u32>> {
                 c = c_int as u32;
                 for d_int in 1..999 {
                     d = d_int as u32;
-                    let (algo_works, _) = find_if_working(a, b, c, d, &mut shared);
+                    let (algo_works, _) = find_if_working(a, b, c, d, &mut possible_combinations);
                     // there is only one possible d for any combination of a, b and c
                     if algo_works {
                         break;
@@ -56,7 +56,7 @@ fn loop_through() -> Vec<Vec<u32>> {
         }
     }
 
-    shared
+    possible_combinations
 }
 
 // creating a hash of c^3 + d^3 = (all possible iterations of c and d)
