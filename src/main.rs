@@ -11,27 +11,10 @@ use std::collections::HashMap;
 // optimization
 // a + b = c + d
 
-// simple algo to find working equations
-// avoiding integer overflow here
-fn find_if_working(
-    a: u32,
-    b: u32,
-    c: u32,
-    d: u32,
-    vec: &mut Vec<Vec<u32>>,
-) -> (bool, &mut Vec<Vec<u32>>) {
-    let mut algo_works: bool = false;
-    if a.pow(3) + b.pow(3) == c.pow(3) + d.pow(3) {
-        vec.push(vec![a, b, c, d]);
-        algo_works = true;
-    }
-    (algo_works, vec)
-}
-
 // a fn that loops over all possible integers and checks for successful equations
 // this is looping through the range of integers
 // with 3 internal loops
-// VERY brute force
+// Less brute force with hashmap
 fn loop_through(c_d_hash: HashMap<u32, Vec<(u32, u32)>>) -> Vec<Vec<u32>> {
     let mut possible_combinations: Vec<Vec<u32>> = vec![];
     let mut a;
@@ -57,20 +40,7 @@ fn loop_through(c_d_hash: HashMap<u32, Vec<(u32, u32)>>) -> Vec<Vec<u32>> {
     possible_combinations
 }
 
-// for c_int in 1..999 {
-//     c = c_int as u32;
-//     for d_int in 1..999 {
-//         d = d_int as u32;
-//         let (algo_works, _) = find_if_working(a, b, c, d, &mut possible_combinations);
-//         // there is only one possible d for any combination of a, b and c
-//         if algo_works {
-//             break;
-//         }
-//     }
-// }
-
-// creating a hash of c^3 + d^3 = (all possible iterations of c and d)
-// use a HashMap
+// creating a hashmap of c^3 + d^3  (sum, Vec<(c, d))
 // for this we would loop through c and d once
 fn create_hash_table() -> HashMap<u32, Vec<(u32, u32)>> {
     let mut c_d_hash: HashMap<u32, Vec<(u32, u32)>> = HashMap::new();
@@ -94,6 +64,23 @@ fn create_hash_table() -> HashMap<u32, Vec<(u32, u32)>> {
 
 fn main() {
     let c_d_hash = create_hash_table();
-    println!("{:?}", c_d_hash);
     println!("{:?}", loop_through(c_d_hash));
 }
+
+// NO LONGER NECESSARY FOR HASHMAP SOLUTION
+// simple algo to find working equations
+// avoiding integer overflow here
+// fn find_if_working(
+//     a: u32,
+//     b: u32,
+//     c: u32,
+//     d: u32,
+//     vec: &mut Vec<Vec<u32>>,
+// ) -> (bool, &mut Vec<Vec<u32>>) {
+//     let mut algo_works: bool = false;
+//     if a.pow(3) + b.pow(3) == c.pow(3) + d.pow(3) {
+//         vec.push(vec![a, b, c, d]);
+//         algo_works = true;
+//     }
+//     (algo_works, vec)
+// }
