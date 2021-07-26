@@ -28,8 +28,6 @@ fn find_if_working(
     (algo_works, vec)
 }
 
-fn bap() -> () {}
-
 // a fn that loops over all possible integers and checks for successful equations
 // this is looping through the range of integers
 // with 3 internal loops
