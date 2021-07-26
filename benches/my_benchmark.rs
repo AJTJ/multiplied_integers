@@ -1,4 +1,4 @@
-use multiplied_integers::run_all;
+use multiplied_integers::{brute_method, run_all};
 
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 
@@ -15,8 +15,11 @@ use criterion::{black_box, criterion_group, criterion_main, Criterion};
 // }
 
 fn criterion_benchmark(c: &mut Criterion) {
-    c.bench_function("collect_options", |b| b.iter(|| run_all()));
+    c.bench_function("hash_method", |b| b.iter(|| run_all()));
+}
+fn criterion_benchmark_brute(c: &mut Criterion) {
+    c.bench_function("brute_method", |b| b.iter(|| brute_method::run_brute()));
 }
 
-criterion_group!(benches, criterion_benchmark);
+criterion_group!(benches, criterion_benchmark, criterion_benchmark_brute);
 criterion_main!(benches);

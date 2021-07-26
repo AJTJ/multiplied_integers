@@ -1,5 +1,7 @@
 use std::collections::HashMap;
 
+pub mod brute_method;
+
 // find all solutions of a^3 + b^3 = c^3 + d^3
 // where 0 < a,b,c,d < 1000
 // ex: all same numbers is correct
@@ -66,5 +68,6 @@ fn create_hash_table() -> HashMap<u32, Vec<(u32, u32)>> {
 
 pub fn run_all() {
     let c_d_hash = create_hash_table();
-    println!("{:?}", loop_through(c_d_hash));
+    let result = loop_through(c_d_hash);
+    // println!("{:?}", result.len());
 }
