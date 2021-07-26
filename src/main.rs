@@ -64,17 +64,17 @@ fn loop_through() -> Vec<Vec<u32>> {
 // for this we would loop through c and d once
 fn create_hash_table() -> HashMap<u32, Vec<(u32, u32)>> {
     let mut c_d_hash: HashMap<u32, Vec<(u32, u32)>> = HashMap::new();
-    for x in 1..999 {
-        for y in 1..999 {
-            let sum: u32 = (x as u32).pow(3) + (y as u32).pow(3);
+    for c in 1..999 {
+        for d in 1..999 {
+            let sum: u32 = (c as u32).pow(3) + (d as u32).pow(3);
             match c_d_hash.get_mut(&sum) {
                 Some(val) => {
                     // add to hash val
-                    val.push((x, y));
+                    val.push((c, d));
                 }
                 None => {
                     // insert new hash
-                    c_d_hash.insert(sum, vec![(x, y)]);
+                    c_d_hash.insert(sum, vec![(c, d)]);
                 }
             }
         }
