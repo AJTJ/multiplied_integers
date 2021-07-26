@@ -3,7 +3,7 @@ use std::collections::HashMap;
 pub mod brute_method;
 
 // find all solutions of a^3 + b^3 = c^3 + d^3
-// where 0 < a,b,c,d < 1000
+// where 0 < a,b,c,d < 100
 // ex: all same numbers is correct
 // ex: they mirror each other
 
