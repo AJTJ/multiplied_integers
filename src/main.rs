@@ -32,32 +32,42 @@ fn find_if_working(
 // this is looping through the range of integers
 // with 3 internal loops
 // VERY brute force
-fn loop_through() -> Vec<Vec<u32>> {
+fn loop_through(c_d_hash: HashMap<u32, Vec<(u32, u32)>>) -> Vec<Vec<u32>> {
     let mut possible_combinations: Vec<Vec<u32>> = vec![];
     let mut a;
     let mut b;
-    let mut c;
-    let mut d;
+
     for a_int in 1..999 {
         a = a_int as u32;
         for b_int in 1..999 {
             b = b_int as u32;
-            for c_int in 1..999 {
-                c = c_int as u32;
-                for d_int in 1..999 {
-                    d = d_int as u32;
-                    let (algo_works, _) = find_if_working(a, b, c, d, &mut possible_combinations);
-                    // there is only one possible d for any combination of a, b and c
-                    if algo_works {
-                        break;
+            let a_b_sum = a.pow(3) + b.pow(3);
+            match c_d_hash.get(&a_b_sum) {
+                // there is a c_d value
+                Some(c_d_vals) => {
+                    for (c, d) in c_d_vals {
+                        possible_combinations.push(vec![a, b, *c, *d])
                     }
                 }
+                None => break,
             }
         }
     }
 
     possible_combinations
 }
+
+// for c_int in 1..999 {
+//     c = c_int as u32;
+//     for d_int in 1..999 {
+//         d = d_int as u32;
+//         let (algo_works, _) = find_if_working(a, b, c, d, &mut possible_combinations);
+//         // there is only one possible d for any combination of a, b and c
+//         if algo_works {
+//             break;
+//         }
+//     }
+// }
 
 // creating a hash of c^3 + d^3 = (all possible iterations of c and d)
 // use a HashMap
@@ -85,5 +95,5 @@ fn create_hash_table() -> HashMap<u32, Vec<(u32, u32)>> {
 fn main() {
     let c_d_hash = create_hash_table();
     println!("{:?}", c_d_hash);
-    // println!("{:?}", loop_through());
+    println!("{:?}", loop_through(c_d_hash));
 }
