@@ -33,6 +33,7 @@ fn bap() -> () {}
 // a fn that loops over all possible integers and checks for successful equations
 // this is looping through the range of integers
 // with 3 internal loops
+// VERY brute force
 fn loop_through() -> Vec<Vec<u32>> {
     let mut shared: Vec<Vec<u32>> = vec![];
     let mut a;
