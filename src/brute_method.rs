@@ -1,14 +1,14 @@
 const MAX_LIMIT: u32 = 100;
 
 fn find_if_working(
-    a: u32,
-    b: u32,
-    c: u32,
-    d: u32,
+    norm: (u32, u32, u32, u32),
+    powed: (u32, u32, u32, u32),
     vec: &mut Vec<Vec<u32>>,
 ) -> (bool, &mut Vec<Vec<u32>>) {
+    let (a, b, c, d) = norm;
+    let (a_pow, b_pow, c_pow, d_pow) = powed;
     let mut algo_works: bool = false;
-    if a.pow(3) + b.pow(3) == c.pow(3) + d.pow(3) {
+    if a_pow + b_pow == c_pow + d_pow {
         vec.push(vec![a, b, c, d]);
         algo_works = true;
     }
@@ -18,18 +18,30 @@ fn find_if_working(
 fn loop_through() -> Vec<Vec<u32>> {
     let mut possible_combinations: Vec<Vec<u32>> = vec![];
     let mut a;
+    let mut a_pow;
     let mut b;
+    let mut b_pow;
     let mut c;
+    let mut c_pow;
     let mut d;
+    let mut d_pow;
     for a_int in 1..MAX_LIMIT {
         a = a_int as u32;
+        a_pow = a_int.pow(3) as u32;
         for b_int in 1..MAX_LIMIT {
             b = b_int as u32;
+            b_pow = b_int.pow(3) as u32;
             for c_int in 1..MAX_LIMIT {
                 c = c_int as u32;
+                c_pow = c_int.pow(3) as u32;
                 for d_int in 1..MAX_LIMIT {
                     d = d_int as u32;
-                    let (algo_works, _) = find_if_working(a, b, c, d, &mut possible_combinations);
+                    d_pow = d_int.pow(3) as u32;
+                    let (algo_works, _) = find_if_working(
+                        (a, b, c, d),
+                        (a_pow, b_pow, c_pow, d_pow),
+                        &mut possible_combinations,
+                    );
                     // there is only one possible d for any combination of a, b and c
                     if algo_works {
                         break;
